@@ -32,13 +32,13 @@ public class Example : MonoBehaviour
 	//this event will be called every time a beat is detected.
 	//Change the threshold parameter in the inspector
 	//to adjust the sensitivity
-	void onOnbeatDetected ()
+	public void onOnbeatDetected ()
 	{
 		Debug.Log ("Beat!!!");
 	}
 
 	//This event will be called every frame while music is playing
-	void onSpectrum (float[] spectrum)
+	public void onSpectrum (float[] spectrum)
 	{
 		//The spectrum is logarithmically averaged
 		//to 12 bands

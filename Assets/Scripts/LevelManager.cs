@@ -26,7 +26,6 @@ public class LevelManager : MonoBehaviour
         Invoke("explosionAlert", 1f);
     }
 
-
     /*
     void spawnSpike()
     {
@@ -34,33 +33,40 @@ public class LevelManager : MonoBehaviour
         Vector3 V3 = new Vector3(9, rand1, 0);
         GameObject go = Instantiate(SpikePrefab, V3, Quaternion.Euler(0, 0, Random.Range(0, 180)));
     }
-    
-    
     void spawnStar(){
             Vector3 V3 = new Vector3(9, Random.Range(-5, 5), 0);
             GameObject go = Instantiate(StarPrefab, V3, Quaternion.identity);
     }
 */
 
-    void rocketAlert()
-    {
-        rand = Random.Range(-6, 6);
-        Vector3 V3rocketAlert = new Vector3(rand, -4.35f, 0);
-        GameObject temp = Instantiate(rocketAlertPrefab, V3rocketAlert, Quaternion.identity);
-        Invoke("spawnRocket", 0.9f);
-        Destroy(temp, 1f);
-        
+    private float elapsed;
+    public float timeBetweenRockets;
+    //List<double> listOfBeatTimes;
+    Queue <float> randQueue = new Queue<float>() ;
+    public void rocketAlert(){
+        if(elapsed > timeBetweenRockets){
+            elapsed = 0f;
+            rand = Random.Range(-6, 6);
+            randQueue.Enqueue(rand);
+            Vector3 V3rocketAlert = new Vector3(rand, -4.35f, 0);
+            GameObject temp = Instantiate(rocketAlertPrefab, V3rocketAlert, Quaternion.identity);
+            //Invoke("spawnRocket", 0.9f);
+            spawnRocket();
+            Destroy(temp, 1f);
+        }
     }
-    void spawnRocket()
-    {
+    void spawnRocket(){
+        
         if(rocketSpawnTime > 0.3f)
             rocketSpawnTime -= 0.2f;
         Debug.Log("Rocket Spawn Time: " + rocketSpawnTime);
-        Vector3 V3RocketSpawn = new Vector3(rand, -7, 0);
+        float r= randQueue.Peek();
+        randQueue.Dequeue();
+        Vector3 V3RocketSpawn = new Vector3(r , -15, 0);
         GameObject go = Instantiate(RocketPrefab, V3RocketSpawn, Quaternion.identity);
-        Invoke("rocketAlert", rocketSpawnTime);
+        //Invoke("rocketAlert", rocketSpawnTime);
     }
-    private void Start()
+        private void Start()
     {
         time = Time.time;
         rocketSpawnTime = 3f;
@@ -68,49 +74,35 @@ public class LevelManager : MonoBehaviour
         Invoke("rocketAlert", 1f);
         Invoke("rocketAlert", 3f);
         Invoke("rocketAlert", 5f);
-        Invoke("rocketAlert", 5.01f);
-        Invoke("rocketAlert", 6.01f);
-        Invoke("rocketAlert", 6.02f);
-        Invoke("rocketAlert", 6.03f);
-        */
-        //InvokeRepeating("rocketAlert", 0f, rocketSpawnTime);
-        Invoke("rocketAlert", 2f);
-        //Invoke("rocketAlert", 2.01f);
+        
+        InvokeRepeating("rocketAlert", 0f, rocketSpawnTime);
+        Invoke("rocketAlert", 2f);                                        //
+        Invoke("rocketAlert", 2.01f);
 
         Invoke("explosionAlert", 1f);
-        //InvokeRepeating("explosionAlert", 0f, rocketSpawnTime);
-        //StartCoroutine(explosionAlert());
-        
-
-        //InvokeRepeating("spawnSpike", 2f, 5f);
-        //InvokeRepeating("spawnStar", 10f, 2f);
-    }
-    
-    
-    /*
-    Vector3 V3explo;
-    IEnumerator explosionAlert(){
-        rand2 = Random.Range(-6, 6);
-        V3explo = new Vector3(rand2, -2, 0);
-        GameObject tempExp = Instantiate(explosionAlertPrefab, V3explo, Quaternion.identity);
-        //Invoke("spawnExplosion", 0.9f);
-        yield return new WaitForSeconds(0.9f);
-        spawnExplosion(0.1f, V3explo);
-        //Destroy(tempExp, 1f);
-        Destroy(tempExp);
-    }
-    IEnumerator spawnExplosion(float t, Vector3 v3){
-        yield return new WaitForSeconds(t);
-        GameObject exp = Instantiate(ExplosionPrefab, v3, Quaternion.identity);
-        Destroy(exp, 0.3f);
+        InvokeRepeating("explosionAlert", 0f, rocketSpawnTime);
         StartCoroutine(explosionAlert());
+        
+        InvokeRepeating("spawnSpike", 2f, 5f);
+        InvokeRepeating("spawnStar", 10f, 2f);
+        */
     }
-    */
-
-
     
     private void Awake()
     {
         instance = this;
     }
+    private void Update() {
+        elapsed += Time.deltaTime;    
+        //check();
+    }
+    //double[] beatTimes= {1, 4d, 6d, 7d, 7.8d, 11.6d, 21d};
+    // void check(){
+    //     for (int i = 0; i < beatTimes.Length ; i++){
+    //         double t = elapsed - beatTimes[i];
+    //         if( t <=0.001d && t >= 0d){
+    //             rocketAlert();
+    //         }
+    //     }
+    // }
 }
