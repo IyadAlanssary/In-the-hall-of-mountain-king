@@ -15,18 +15,15 @@ public class Rocket : MonoBehaviour
         if (transform.position.y > 7){
           Destroy(this.gameObject);
         }
-        transform.Rotate (Vector3.up * 40 * Time.deltaTime, Space.Self);
+        transform.Rotate (Vector3.up * 170 * Time.deltaTime, Space.Self);
     }
     
 
     private void OnCollisionEnter2D(Collision2D other) {
       if(other.gameObject.tag.Equals("Player")){
         other.gameObject.GetComponent<PlayerHealth>().UpdateHealth(-attackDamage);
-        
         Instantiate(rocketExplosionPrefab, this.gameObject.transform.position, Quaternion.identity);
         Destroy(this.gameObject);
-        
-        
       }
     }
 }

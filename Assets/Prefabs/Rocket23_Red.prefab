@@ -11,11 +11,12 @@ GameObject:
   - component: {fileID: 3897608772933889841}
   - component: {fileID: 6864800529186074073}
   - component: {fileID: 5377642041150690483}
-  - component: {fileID: 4403771645011842789}
   - component: {fileID: 6880254756310552495}
   - component: {fileID: 4424837837743926951}
+  - component: {fileID: 4403771645011842789}
   - component: {fileID: 5768756661470931015}
   - component: {fileID: 7945475800511545693}
+  - component: {fileID: 2809603185083079400}
   m_Layer: 0
   m_Name: Rocket23_Red
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 1392622114139610826}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.2, z: 0.17}
+  m_LocalScale: {x: 0.17, y: 0.18, z: 0.17}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -87,22 +88,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4403771645011842789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1392622114139610826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 268acb0aedfa65541b9d2ff30a04b641, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 12
-  attackDamage: 1
-  Rigidbody: {fileID: 6880254756310552495}
-  rocketExplosionPrefab: {fileID: 139366, guid: b185c1a9cf067374586d095111b15bd1, type: 3}
 --- !u!50 &6880254756310552495
 Rigidbody2D:
   serializedVersion: 4
@@ -149,34 +134,58 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 1.7616005, y: 2.0655515}
-      - {x: 0.75937074, y: 4.9668417}
-      - {x: 0.092742115, y: 5.2856426}
-      - {x: -0.15689509, y: 5.2696815}
-      - {x: -0.7733463, y: 4.9545703}
-      - {x: -1.7249868, y: 2.9558876}
-      - {x: -1.6886966, y: 2.8573117}
-      - {x: -1.6850187, y: 2.7477276}
-      - {x: -1.654316, y: 2.6179135}
-      - {x: -1.6576372, y: 2.3338776}
-      - {x: -1.6587424, y: 2.107556}
-      - {x: -1.6766676, y: 1.9204562}
-      - {x: -1.7114516, y: 1.712743}
-      - {x: -1.7176709, y: 1.2995639}
-      - {x: -1.7013694, y: 1.0953861}
-      - {x: -1.7574995, y: 0.8990979}
-      - {x: -1.6896309, y: 0.61925}
-      - {x: -1.8626242, y: -1.1459078}
-      - {x: -2.4466734, y: -3.5414202}
-      - {x: -1.2146808, y: -3.6677966}
-      - {x: -0.7488027, y: -4.9766254}
-      - {x: 0.654352, y: -4.974057}
-      - {x: 1.2792931, y: -3.583016}
-      - {x: 2.5276127, y: -3.541419}
-      - {x: 1.8837787, y: -1.1482043}
-      - {x: 1.7274088, y: 1.7332067}
-      - {x: 1.7290201, y: 1.834212}
-      - {x: 1.6874828, y: 1.9550314}
+    - - {x: 0.69254625, y: 2.9308503}
+      - {x: 0.5126066, y: 3.661194}
+      - {x: 0.31481364, y: 4.9668417}
+      - {x: 0.19602251, y: 5.6444483}
+      - {x: 0.014795236, y: 5.8840466}
+      - {x: -0.18155354, y: 5.667256}
+      - {x: -0.24738093, y: 5.4703436}
+      - {x: -0.42301923, y: 4.841965}
+      - {x: -0.7240522, y: 2.93712}
+      - {x: -0.8879489, y: 2.256751}
+      - {x: -0.8879488, y: 2.256751}
+      - {x: -0.7997009, y: 1.6737862}
+      - {x: -0.79959345, y: 1.5090711}
+      - {x: -0.7784981, y: 0.55348563}
+      - {x: -0.7249847, y: -0.23091698}
+      - {x: -0.6414121, y: -0.80698323}
+      - {x: -0.68170637, y: -0.9771037}
+      - {x: -0.6423977, y: -1.2086325}
+      - {x: -0.6697863, y: -1.3598404}
+      - {x: -0.7487472, y: -1.468756}
+      - {x: -0.8683853, y: -1.7285523}
+      - {x: -0.927533, y: -1.9766464}
+      - {x: -1.1428651, y: -2.3208086}
+      - {x: -1.35645, y: -2.850769}
+      - {x: -1.2993582, y: -3.4058251}
+      - {x: -0.7276333, y: -2.8411632}
+      - {x: -0.43587154, y: -3.9738035}
+      - {x: 0.3901788, y: -3.9640648}
+      - {x: 0.48476696, y: -3.4382184}
+      - {x: 0.77442384, y: -3.0593474}
+      - {x: 1.362776, y: -3.4334245}
+      - {x: 1.3403352, y: -2.8207843}
+      - {x: 0.6030308, y: -1.2672822}
+      - {x: 0.785371, y: 1.6855756}
+      - {x: 0.80815184, y: 2.1279373}
+      - {x: 0.74544513, y: 2.5901132}
+--- !u!114 &4403771645011842789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392622114139610826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 268acb0aedfa65541b9d2ff30a04b641, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 14
+  attackDamage: 1
+  Rigidbody: {fileID: 6880254756310552495}
+  rocketExplosionPrefab: {fileID: 139366, guid: b185c1a9cf067374586d095111b15bd1, type: 3}
 --- !u!198 &5768756661470931015
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4952,3 +4961,99 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!82 &2809603185083079400
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392622114139610826}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 0a1fb9ba910ada3498d59a5a5002864f, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.01
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
