@@ -9,15 +9,12 @@ public class AudacityLabelAlert : MonoBehaviour
 
     [Header ("Events")]
     public OnLabelEventHandler onLabel;
-    public AudioSource music;
     public float delay = 0.0f;
-
     float[] labels;
     int nextLabelIndex = 0;
-    static bool stopMusicBool, birdDieBool, birdWinBool;
-    [SerializeField] private AudioSource birdDie, birdWin;
+    public static bool stopMusicBool, birdDieBool, birdWinBool;
+    [SerializeField] private AudioSource music, birdDie, birdWin, rocketSFX, explosionSFX;
     [SerializeField] private GameObject pauseMenuObject;
-    [SerializeField] private AudioSource rocketSFX, explosionSFX;
 
     void Start(){
         stopMusicBool = false; birdDieBool = false; birdWinBool = false;
@@ -37,7 +34,7 @@ public class AudacityLabelAlert : MonoBehaviour
             onLabel.Invoke();
             nextLabelIndex++;
         }
-        if(Input.GetKeyDown(KeyCode.H) && pauseMenuObject.activeSelf == false){
+        if(Input.GetKeyDown(KeyCode.H) && LevelManager.pauseMenuObject.activeInHierarchy == false){
             if(music.pitch == 1)
                 music.pitch = 2;
             else
@@ -55,36 +52,13 @@ public class AudacityLabelAlert : MonoBehaviour
             birdWinBool = false;
         }
     }
-
     [System.Serializable]
 	public class OnLabelEventHandler : UnityEngine.Events.UnityEvent
 	{
 
 	}
-    public static void stopMusic(){
-        stopMusicBool = true;
-    }
-    public static void playBirdDied(){
-        birdDieBool = true;
-    }
-    public static void playBirdWin(){
-        birdWinBool = true;
-    }
-    //bool noSFXBool = false;
     public void noSFX(){
-        
-            rocketSFX.enabled = !rocketSFX.enabled;
-            explosionSFX.enabled = !explosionSFX.enabled;
-        /*
-        if(noSFXBool){
-            rocketSFX.playOnAwake = true;
-            explosionSFX.playOnAwake = true;
-        }
-        else{
-            rocketSFX.playOnAwake = false;
-            explosionSFX.playOnAwake = false;
-        }
-        */
-     //   noSFXBool = !noSFXBool;
+        rocketSFX.enabled = !rocketSFX.enabled;
+        explosionSFX.enabled = !explosionSFX.enabled;
     }
 }

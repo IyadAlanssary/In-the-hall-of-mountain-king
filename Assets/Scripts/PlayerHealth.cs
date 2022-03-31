@@ -7,16 +7,13 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     private float health = 0f, elapsed = 0f;
-    public GameObject[] hearts;
+    [SerializeField] private GameObject[] hearts;
     [SerializeField] private float maxHealth;
     [SerializeField] private GameObject deadHeroPrefab, createdByObject, gameOverObject;
     [SerializeField] private Sprite kingBirdSprite;
     [SerializeField] private RuntimeAnimatorController kingBirdAnimController;
-    //private bool winnerWinnerChickenDinner;
 
     private void Start() {
-        //winnerWinnerChickenDinner = savedData.winnerWinnerChickenDinner;
-        Debug.Log(savedData.winnerWinnerChickenDinner);
         if(savedData.winnerWinnerChickenDinner){
             this.gameObject.GetComponent<SpriteRenderer>().sprite = kingBirdSprite;
             this.gameObject.GetComponent<Animator>().runtimeAnimatorController = kingBirdAnimController;
@@ -32,7 +29,7 @@ public class PlayerHealth : MonoBehaviour
     }
 
     public void UpdateHealth(float mod){
-        if(mod < 0 && elapsed <= 1f){
+        if(mod < 0 && elapsed <= 1f){//in recovery time (1 second)
             return;
         }
         if(mod > 0 && health < maxHealth){
@@ -40,40 +37,28 @@ public class PlayerHealth : MonoBehaviour
         }
         else if(mod < 0){
             gameObject.GetComponent<Animator>().SetTrigger("Recovery");
-            //Destroy(hearts[((int)health)-1]);
             hearts[((int)health)-1].SetActive(false);
-
         }
-        
-        
         elapsed = 0f;
         
         health += mod;
-        
         if(health > maxHealth)
             health = maxHealth;
         else if ( health <= 0 ){
-            //AudioListener.pause = true;
-            //AudacityLabelAlert a = new AudacityLabelAlert();
-            //a.music.Stop();
-            AudacityLabelAlert.stopMusic();
-            AudacityLabelAlert.playBirdDied();
-            //birdDie.Play();
-            
+            AudacityLabelAlert.stopMusicBool = true;
+            AudacityLabelAlert.birdDieBool = true;
             gameOverObject.SetActive(true);
             savedData.winnerWinnerChickenDinner = false;
             health = 0;
             Instantiate(deadHeroPrefab, gameObject.transform.position, Quaternion.identity);
             Time.timeScale = 0;
             Destroy(this.gameObject);
-            
          }
     }
     private void winGame(){
         if(this.gameObject.activeInHierarchy){
             //AudioListener.pause = true;
-            AudacityLabelAlert.playBirdWin();
-            //birdWin.Play();
+            AudacityLabelAlert.birdWinBool = true;
             createdByObject.SetActive(true);
             savedData.winnerWinnerChickenDinner = true;
             this.gameObject.GetComponent<SpriteRenderer>().sprite = kingBirdSprite;
