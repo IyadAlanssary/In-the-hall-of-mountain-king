@@ -4,8 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
   - Walls
+  - Explosion
   layers:
   - Default
   - TransparentFX

@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
     [SerializeField] private float movementSpeed;
-    private float dx, flippedXScale, xScale, elapsed = 0f;
+    private float dx, flippedXScale, xScale;
     Vector2 movement;
     private Animator animator;
 
@@ -25,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
-        elapsed += Time.deltaTime;
         movement.x = Input.GetAxisRaw("Horizontal");
         if (movement.x > 0)
         {
@@ -40,14 +39,6 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * movementSpeed * Time.fixedDeltaTime);
-    }
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag.Equals("Enemy") && elapsed >= 0.5f)
-        {
-            gameObject.GetComponent<PlayerHealth>().UpdateHealth(-1);
-            elapsed = 0f;
-        }
     }
 
     //rb.velocity = movement;    

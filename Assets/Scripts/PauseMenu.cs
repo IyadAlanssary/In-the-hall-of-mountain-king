@@ -7,11 +7,13 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool isPaused = false;
     float previousTimeScale;
+    public GameObject PauseMenuObject;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            PauseMenuObject.SetActive(!PauseMenuObject.activeSelf);
             if (Time.timeScale == 0)
             {
                 AudioListener.pause = false;
@@ -23,7 +25,6 @@ public class PauseMenu : MonoBehaviour
                 AudioListener.pause = true;
                 Time.timeScale = 0;
             }
-            gameObject.SetActive(!gameObject.activeSelf);
         }
     }
     public void QuitGame()

@@ -173,6 +173,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 189558085}
+  - component: {fileID: 189558086}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -196,6 +197,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &189558086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189558084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6572d560fe126dd4d83fa38dd0fbe621, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PauseMenuObject: {fileID: 1819893800}
 --- !u!1 &192026729
 GameObject:
   m_ObjectHideFlags: 0
@@ -2648,7 +2662,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &831170179
 GameObject:
   m_ObjectHideFlags: 0
@@ -4277,7 +4291,6 @@ MonoBehaviour:
   explosionAlertPrefab: {fileID: 4233005491927472679, guid: 0fdc877f3003cfb4782eff5128ff9a0c, type: 3}
   player: {fileID: 1028230267}
   extraHeartPrefab: {fileID: 8334076039497773044, guid: 7bc62d9145c644741bda58bd2ed28db3, type: 3}
-  pauseMenuObjectActual: {fileID: 1819893800}
 --- !u!4 &1617769579
 Transform:
   m_ObjectHideFlags: 0

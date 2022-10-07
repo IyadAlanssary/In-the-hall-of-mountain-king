@@ -21,7 +21,7 @@ public class PlayerHealth : MonoBehaviour
             this.gameObject.GetComponent<Animator>().runtimeAnimatorController = kingBirdAnimController;
         }
         health = maxHealth;
-        Invoke("winGame", 152); //152 seconds (time of song)
+        Invoke("WinGame", 152); //152 seconds (time of song)
     }
     private void Update()
     {
@@ -35,7 +35,8 @@ public class PlayerHealth : MonoBehaviour
     public void UpdateHealth(float mod)
     {
         if (mod < 0 && elapsed <= 1f)
-        {//in recovery time (1 second)
+        {
+            //in recovery time (1 second)
             return;
         }
         if (mod > 0 && health < maxHealth)
@@ -54,17 +55,10 @@ public class PlayerHealth : MonoBehaviour
             health = maxHealth;
         else if (health <= 0)
         {
-            FindObjectOfType<AudioManager>().Stop("in the hall");
-            FindObjectOfType<AudioManager>().Play("bird die");
-            gameOverObject.SetActive(true);
-            SavedData.winnerWinnerChickenDinner = false;
-            health = 0;
-            Instantiate(deadHeroPrefab, gameObject.transform.position, Quaternion.identity);
-            Time.timeScale = 0;
-            Destroy(this.gameObject);
+            LoseGame();
         }
     }
-    private void winGame()
+    private void WinGame()
     {
         if (this.gameObject.activeInHierarchy)
         {
@@ -77,6 +71,24 @@ public class PlayerHealth : MonoBehaviour
             this.gameObject.transform.position = new Vector3(0, 0, 0);
             this.gameObject.transform.localScale = new Vector3(1, 1, 1);
             Time.timeScale = 0;
+        }
+    }
+    private void LoseGame()
+    {
+        FindObjectOfType<AudioManager>().Stop("in the hall");
+        FindObjectOfType<AudioManager>().Play("bird die");
+        gameOverObject.SetActive(true);
+        SavedData.winnerWinnerChickenDinner = false;
+        health = 0;
+        Instantiate(deadHeroPrefab, gameObject.transform.position, Quaternion.identity);
+        Time.timeScale = 0;
+        Destroy(this.gameObject);
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Explosion")
+        {
+            UpdateHealth(-1);
         }
     }
 }

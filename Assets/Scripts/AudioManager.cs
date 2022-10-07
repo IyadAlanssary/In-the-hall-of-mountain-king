@@ -30,6 +30,7 @@ public class AudioManager : MonoBehaviour
             s.source.loop = s.loop;
         }
         music = Array.Find(sounds, sound => sound.name == "in the hall");
+        ToggleSfxVolume();
     }
     private void Update()
     {
@@ -61,23 +62,7 @@ public class AudioManager : MonoBehaviour
         }
         s.source.Stop();
     }
-    public void PauseMusic()
-    {
-        audioPaused = true;
-        foreach (Sound s in sounds)
-        {
-            s.source.Pause();
-        }
-    }
-    public void UnPauseMusic()
-    {
-        audioPaused = false;
-        foreach (Sound s in sounds)
-        {
-            s.source.UnPause();
-        }
-    }
-
+    
     // public void SetMusicVolume(float v)
     // {
     //     foreach (Sound s in sounds)
