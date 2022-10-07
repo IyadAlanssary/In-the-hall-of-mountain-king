@@ -13,54 +13,64 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Sprite kingBirdSprite;
     [SerializeField] private RuntimeAnimatorController kingBirdAnimController;
 
-    private void Start() {
-        if(savedData.winnerWinnerChickenDinner){
+    private void Start()
+    {
+        if (SavedData.winnerWinnerChickenDinner)
+        {
             this.gameObject.GetComponent<SpriteRenderer>().sprite = kingBirdSprite;
             this.gameObject.GetComponent<Animator>().runtimeAnimatorController = kingBirdAnimController;
         }
         health = maxHealth;
         Invoke("winGame", 152); //152 seconds (time of song)
     }
-    private void Update() {
-        if ( Input.GetKeyDown(KeyCode.O) ){
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
             UpdateHealth(+1);
         }
         elapsed += Time.deltaTime;
     }
 
-    public void UpdateHealth(float mod){
-        if(mod < 0 && elapsed <= 1f){//in recovery time (1 second)
+    public void UpdateHealth(float mod)
+    {
+        if (mod < 0 && elapsed <= 1f)
+        {//in recovery time (1 second)
             return;
         }
-        if(mod > 0 && health < maxHealth){
-            hearts[( (int) health ) ].SetActive(true);
+        if (mod > 0 && health < maxHealth)
+        {
+            hearts[((int)health)].SetActive(true);
         }
-        else if(mod < 0){
+        else if (mod < 0)
+        {
             gameObject.GetComponent<Animator>().SetTrigger("Recovery");
-            hearts[((int)health)-1].SetActive(false);
+            hearts[((int)health) - 1].SetActive(false);
         }
         elapsed = 0f;
-        
+
         health += mod;
-        if(health > maxHealth)
+        if (health > maxHealth)
             health = maxHealth;
-        else if ( health <= 0 ){
-            AudacityLabelAlert.stopMusicBool = true;
-            AudacityLabelAlert.birdDieBool = true;
+        else if (health <= 0)
+        {
+            FindObjectOfType<AudioManager>().Stop("in the hall");
+            FindObjectOfType<AudioManager>().Play("bird die");
             gameOverObject.SetActive(true);
-            savedData.winnerWinnerChickenDinner = false;
+            SavedData.winnerWinnerChickenDinner = false;
             health = 0;
             Instantiate(deadHeroPrefab, gameObject.transform.position, Quaternion.identity);
             Time.timeScale = 0;
             Destroy(this.gameObject);
-         }
+        }
     }
-    private void winGame(){
-        if(this.gameObject.activeInHierarchy){
-            //AudioListener.pause = true;
-            AudacityLabelAlert.birdWinBool = true;
+    private void winGame()
+    {
+        if (this.gameObject.activeInHierarchy)
+        {
+            FindObjectOfType<AudioManager>().Play("bird win");
             createdByObject.SetActive(true);
-            savedData.winnerWinnerChickenDinner = true;
+            SavedData.winnerWinnerChickenDinner = true;
             this.gameObject.GetComponent<SpriteRenderer>().sprite = kingBirdSprite;
             this.gameObject.GetComponent<Animator>().runtimeAnimatorController = kingBirdAnimController;
             this.gameObject.GetComponent<PlayerMovement>().enabled = false;

@@ -29,7 +29,7 @@ public class ExtraHeart : MonoBehaviour{
         if(this.gameObject.transform.position.x <= -9.3f)
             Destroy(this.gameObject);
         
-        if(Input.GetKeyDown(KeyCode.H) && LevelManager.pauseMenuObject.activeInHierarchy == false){
+        if(Input.GetKeyDown(KeyCode.H) && !PauseMenu.isPaused){
             if(ySpeed == 0.8f * speed)  //because when pressing h the timescale is 2 >> which make Time.deltatime
                 ySpeed = 0.4f * speed;  //     half its value >> so ySpeed is changed to keep y pos of heart the same
             else

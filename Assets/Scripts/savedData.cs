@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class savedData : MonoBehaviour
+public class SavedData : MonoBehaviour
 {
     public static bool winnerWinnerChickenDinner = false;
-    void Start(){
+    void Start()
+    {
         DontDestroyOnLoad(this.gameObject);
     }
 }

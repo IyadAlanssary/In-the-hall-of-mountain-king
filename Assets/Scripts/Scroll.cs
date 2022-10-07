@@ -5,8 +5,8 @@ using UnityEngine;
 public class Scroll : MonoBehaviour
 {
     public float speed = 0;
-
-    private void FixedUpdate() {
-        GetComponent<Renderer>().material.mainTextureOffset = new Vector2 (Time.time * speed, 0f);
+    private void FixedUpdate()
+    {
+        GetComponent<Renderer>().material.mainTextureOffset = new Vector2(Time.time * speed, 0f);
     }
 }
