@@ -35,6 +35,7 @@ public class AudacityLabelAlert : MonoBehaviour
         while (nextLabelIndex != labels.Length && music.time >= labels[nextLabelIndex] + delay)
         {
             onLabel.Invoke();
+            //LevelManager.instance.RandomizeRocketOrExplosion();
             nextLabelIndex++;
         }
     }

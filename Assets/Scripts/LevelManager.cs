@@ -9,8 +9,10 @@ public class LevelManager : MonoBehaviour
     public GameObject rocketPrefab, explosionPrefab, rocketAlertPrefab, explosionAlertPrefab,
      player, extraHeartPrefab;
     private float elapsed = 0f, playerXPos;
-    private float[] obstacleXPositions = { -7.35f, -5.5f, -3.7f, -1.85f, -0.03f, 1.79f, 3.65f, 5.58f, 7.47f };
-    
+    [SerializeField] private float rocketAlertY;
+    private float[] obstacleXPositions = { -6.5f, -3.2f, 0.1f, 3.4f, 6.7f };
+    //{ -7.35f, -5.5f, -3.7f, -1.85f, -0.03f, 1.79f, 3.65f, 5.58f, 7.47f };
+
     private void Awake()
     {
         instance = this;
@@ -20,8 +22,8 @@ public class LevelManager : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("in the hall");
         StartCoroutine(RocketAlertBurst());
         Time.timeScale = 1;
-        InvokeRepeating("spawnHeart", 60, 19);
-        Invoke("spawnHeart", 140);
+        InvokeRepeating("SpawnHeart", 60, 19);
+        Invoke("SpawnHeart", 140);
     }
     public void RandomizeRocketOrExplosion()
     {
@@ -37,7 +39,7 @@ public class LevelManager : MonoBehaviour
         int i = 0;
         while (i < obstacleXPositions.Length)
         {
-            if (Mathf.Abs(obstacleXPositions[i] - playerXPos) <= 1.1f)
+            if (Mathf.Abs(obstacleXPositions[i] - playerXPos) <= 1.4f)
             {
                 return i;
             }
@@ -54,7 +56,7 @@ public class LevelManager : MonoBehaviour
             elapsed = 0f;
         }
         else
-            randForExplosion = Random.Range(0, 9);
+            randForExplosion = Random.Range(0, obstacleXPositions.Length);
         float explosionXPosition = obstacleXPositions[randForExplosion];
         Vector3 V3Explo = new Vector3(explosionXPosition, -0.8f, 0);
         GameObject tempExp = Instantiate(explosionAlertPrefab, V3Explo, Quaternion.identity);
@@ -94,9 +96,9 @@ public class LevelManager : MonoBehaviour
             elapsed = 0f;
         }
         else
-            rocketXIndex = Random.Range(0, 9);
+            rocketXIndex = Random.Range(0, obstacleXPositions.Length);
         rocketXPosition = obstacleXPositions[rocketXIndex];
-        Vector3 V3rocketAlert = new Vector3(rocketXPosition, -4f, 0);
+        Vector3 V3rocketAlert = new Vector3(rocketXPosition, rocketAlertY, 0);
         GameObject temp = Instantiate(rocketAlertPrefab, V3rocketAlert, Quaternion.identity);
         SpawnRocket(rocketXPosition);
         Destroy(temp, 1f);
@@ -104,7 +106,7 @@ public class LevelManager : MonoBehaviour
     void SpawnRocket(float r)
     {
         FindObjectOfType<AudioManager>().Play("rocket");
-        Vector3 V3RocketSpawn = new Vector3(r, -15, 0);
+        Vector3 V3RocketSpawn = new Vector3(r, -15f, 0);
         GameObject go = Instantiate(rocketPrefab, V3RocketSpawn, Quaternion.identity);
     }
     private void Update()
