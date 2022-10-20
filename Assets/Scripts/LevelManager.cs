@@ -20,18 +20,20 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         FindObjectOfType<AudioManager>().Play("in the hall");
-        StartCoroutine(RocketAlertBurst());
+        //StartCoroutine(RocketAlertBurst());
         Time.timeScale = 1;
         InvokeRepeating("SpawnHeart", 60, 19);
         Invoke("SpawnHeart", 140);
     }
-    public void RandomizeRocketOrExplosion()
+    public void RandomizeRocketOrExplosion(int xPos)
     {
+        if(xPos == 9)
+            xPos = FindPlayerPosIndex();
         int randomForChoosingRocketOrExplosion = Random.Range(1, 5);
         if (randomForChoosingRocketOrExplosion == 2)
-            ExplosionAlert();
+            ExplosionAlert(xPos);
         else
-            RocketAlert();
+            RocketAlert(xPos);
     }
 
     private int FindPlayerPosIndex()
@@ -39,7 +41,7 @@ public class LevelManager : MonoBehaviour
         int i = 0;
         while (i < obstacleXPositions.Length)
         {
-            if (Mathf.Abs(obstacleXPositions[i] - playerXPos) <= 1.4f)
+            if (Mathf.Abs(obstacleXPositions[i] - playerXPos) <= 1.65f)
             {
                 return i;
             }
@@ -47,18 +49,18 @@ public class LevelManager : MonoBehaviour
         }
         return 0;
     }
-    public void ExplosionAlert()
+    public void ExplosionAlert(int xPos)
     {
-        int randForExplosion;
-        if (elapsed >= 1f)
-        {
-            randForExplosion = FindPlayerPosIndex();
-            elapsed = 0f;
-        }
-        else
-            randForExplosion = Random.Range(0, obstacleXPositions.Length);
-        float explosionXPosition = obstacleXPositions[randForExplosion];
-        Vector3 V3Explo = new Vector3(explosionXPosition, -0.8f, 0);
+        // int randForExplosion;
+        // if (elapsed >= 1f)
+        // {
+        //     randForExplosion = FindPlayerPosIndex();
+        //     elapsed = 0f;
+        // }
+        // else
+        //     randForExplosion = Random.Range(0, obstacleXPositions.Length);
+        //float explosionXPosition = obstacleXPositions[randForExplosion];
+        Vector3 V3Explo = new Vector3(obstacleXPositions[xPos], -0.8f, 0);
         GameObject tempExp = Instantiate(explosionAlertPrefab, V3Explo, Quaternion.identity);
         StartCoroutine(SpawnExplo(V3Explo));
         Destroy(tempExp, 1.03f);
@@ -86,21 +88,22 @@ public class LevelManager : MonoBehaviour
             yield return new WaitForSeconds(0.15f);
         }
     }
-    private void RocketAlert()
+    private void RocketAlert(int xPos)
     {
-        int rocketXIndex;
-        float rocketXPosition;
-        if (elapsed >= 1f)
-        {
-            rocketXIndex = FindPlayerPosIndex();
-            elapsed = 0f;
-        }
-        else
-            rocketXIndex = Random.Range(0, obstacleXPositions.Length);
-        rocketXPosition = obstacleXPositions[rocketXIndex];
-        Vector3 V3rocketAlert = new Vector3(rocketXPosition, rocketAlertY, 0);
+        // int rocketXIndex;
+        // float rocketXPosition;
+        // if (elapsed >= 1f)
+        // {
+        //     rocketXIndex = FindPlayerPosIndex();
+        //     elapsed = 0f;
+        // }
+        // else
+        //     rocketXIndex = Random.Range(0, obstacleXPositions.Length);
+        //rocketXPosition = obstacleXPositions[xPos];
+        
+        Vector3 V3rocketAlert = new Vector3(obstacleXPositions[xPos], rocketAlertY, 0);
         GameObject temp = Instantiate(rocketAlertPrefab, V3rocketAlert, Quaternion.identity);
-        SpawnRocket(rocketXPosition);
+        SpawnRocket(obstacleXPositions[xPos]);
         Destroy(temp, 1f);
     }
     void SpawnRocket(float r)

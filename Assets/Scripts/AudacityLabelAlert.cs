@@ -8,9 +8,9 @@ public class AudacityLabelAlert : MonoBehaviour
     public TextAsset exportedLabels;
 
     [Header("Events")]
-    public OnLabelEventHandler onLabel;
     public float delay = 0.0f;
     float[] labels;
+    int[] positions;
     int nextLabelIndex = 0;
     [SerializeField] private GameObject pauseMenuObject;
     AudioSource music;
@@ -21,12 +21,15 @@ public class AudacityLabelAlert : MonoBehaviour
         string rawData = exportedLabels.text;
         string[] rawLines = rawData.Split("\n\r".ToCharArray(), System.StringSplitOptions.RemoveEmptyEntries);
         labels = new float[rawLines.Length];
+        positions = new int[rawLines.Length];
 
         for (int i = 0; i < rawLines.Length; i++)
         {
             string line = rawLines[i];
             string rawStartPosition = Regex.Match(line, "^[^\t]*").Value;
+            string number = Regex.Match(line, @"\d$").Value;
             labels[i] = float.Parse(rawStartPosition);
+            positions[i] = int.Parse(number);
         }
     }
 
@@ -34,14 +37,8 @@ public class AudacityLabelAlert : MonoBehaviour
     {
         while (nextLabelIndex != labels.Length && music.time >= labels[nextLabelIndex] + delay)
         {
-            onLabel.Invoke();
-            //LevelManager.instance.RandomizeRocketOrExplosion();
+            LevelManager.instance.RandomizeRocketOrExplosion(positions[nextLabelIndex]);
             nextLabelIndex++;
         }
-    }
-    [System.Serializable]
-    public class OnLabelEventHandler : UnityEngine.Events.UnityEvent
-    {
-
     }
 }
