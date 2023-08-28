@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -29,7 +30,12 @@ public class AudacityLabelAlert : MonoBehaviour
             string rawStartPosition = Regex.Match(line, "^[^\t]*").Value;
             string number = Regex.Match(line, @"\d$").Value;
             labels[i] = float.Parse(rawStartPosition);
-            positions[i] = int.Parse(number);
+            try{
+                positions[i] = int.Parse(number);
+            }
+            catch{
+                positions[i] = 9;    
+            }
         }
     }
 

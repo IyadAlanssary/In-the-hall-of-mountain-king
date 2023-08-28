@@ -25,6 +25,24 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
+        //touch input
+        if(Input.touchCount > 0){
+            Touch touch = Input.GetTouch(0);
+            Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+            touchPosition.z = 0f;
+            if(touchPosition.x > 0){
+                movement.x = 1;
+                transform.localScale = new Vector3(xScale, transform.localScale.y, transform.localScale.z);
+            }
+            else{
+                movement.x = -1;
+                transform.localScale = new Vector3(flippedXScale, transform.localScale.y, transform.localScale.z);
+            }
+        }
+        else{
+            movement.x = 0;
+        }
+
         movement.x = Input.GetAxisRaw("Horizontal");
         if (movement.x > 0)
         {
@@ -39,6 +57,14 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * movementSpeed * Time.fixedDeltaTime);
+    }
+    public void phoneInputRight(){
+        // movement.x = 1;
+        // transform.localScale = new Vector3(xScale, transform.localScale.y, transform.localScale.z);
+    }
+    public void phoneInputLeft(){
+        // movement.x = -1;
+        // transform.localScale = new Vector3(flippedXScale, transform.localScale.y, transform.localScale.z);
     }
 
     //rb.velocity = movement;    

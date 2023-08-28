@@ -2243,21 +2243,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   exportedLabels: {fileID: 4900000, guid: 48498c5bc44559949a497118b267a245, type: 3}
-  onLabel:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1617769577}
-        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
-        m_MethodName: RandomizeRocketOrExplosion
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   delay: -1
   pauseMenuObject: {fileID: 1819893800}
 --- !u!1 &657266257
@@ -4069,6 +4054,7 @@ MonoBehaviour:
   explosionAlertPrefab: {fileID: 4233005491927472679, guid: 0fdc877f3003cfb4782eff5128ff9a0c, type: 3}
   player: {fileID: 1028230267}
   extraHeartPrefab: {fileID: 8334076039497773044, guid: 7bc62d9145c644741bda58bd2ed28db3, type: 3}
+  rocketAlertY: -4
 --- !u!4 &1617769579
 Transform:
   m_ObjectHideFlags: 0
